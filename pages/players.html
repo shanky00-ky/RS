@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Players</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container my-5">
+    <h2 class="text-center">Register 8 Players and Assign Positions</h2>
+    <form>
+        <!-- Loop for Player Registration -->
+        <div class="form-group">
+            <label for="player1">Player 1 Name</label>
+            <input type="text" class="form-control" id="player1" placeholder="Enter player name" required>
+            <label for="position1">Position</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="setter1" value="Setter">
+                <label class="form-check-label" for="setter1">Setter</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="attacker1" value="Attacker">
+                <label class="form-check-label" for="attacker1">Attacker</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="defender1" value="Defender">
+                <label class="form-check-label" for="defender1">Defender</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="blocker1" value="Blocker">
+                <label class="form-check-label" for="blocker1">Blocker</label>
+            </div>
+        </div>
+        <!-- Add similar blocks for Player 2 to Player 8 -->
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block">Register Players</button>
+    </form>
+</div>
+
+<footer class="text-center py-4">
+    <p>&copy; 2024 Volleyball Tournament. All rights reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
