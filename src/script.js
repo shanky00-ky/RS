@@ -1,158 +1,136 @@
-// Countdown Timer for the tournament date
-function countdown() {
-    const eventDate = new Date('2024-12-01T00:00:00').getTime(); // Event Date
-    const now = new Date().getTime(); // Current Date
-    const timeLeft = eventDate - now;
+// Function to show the selected section and hide others
+function showSection(sectionId) {
+    // Get all sections with class 'section'
+    const sections = document.querySelectorAll('.section');
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    // Loop through sections and hide them
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
 
-    // Update countdown display
-    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-    // Event started
-    if (timeLeft < 0) {
-        document.getElementById("countdown").innerHTML = "Event started!";
-    }
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
 }
 
-// Update countdown every second
-setInterval(countdown, 1000);
+// Event listener for navigation links to handle clicks
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = this.getAttribute('href').substring(1); // Get target section ID
+        showSection(target); // Show the clicked section
+    });
+});
+
+// Countdown Timer Logic
+const eventDate = new Date("2024-12-15T09:00:00").getTime();
+const countdownElement = document.getElementById('countdown');
+const countdownInterval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        countdownElement.innerHTML = "Event Started!";
+    }
+}, 1000);
+
+// Carousel initialization
+const carouselElements = document.querySelectorAll('.carousel');
+carouselElements.forEach(carousel => {
+    new bootstrap.Carousel(carousel, {
+        interval: 3000,
+        pause: 'hover'
+    });
+});
+
 
 // Form Validation for Player Registration
-function validateForm() {
+document.getElementById('registration-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const playerNames = document.querySelectorAll('.player-name');
     let valid = true;
 
-    // Validate team name
-    const teamName = document.getElementById("team-name");
-    if (teamName.value.trim() === "") {
-        teamName.classList.add("is-invalid");
-        valid = false;
-    } else {
-        teamName.classList.remove("is-invalid");
-    }
-
-    // Validate email address
-    const email = document.getElementById("email");
-    const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if (!emailPattern.test(email.value)) {
-        email.classList.add("is-invalid");
-        valid = false;
-    } else {
-        email.classList.remove("is-invalid");
-    }
-
-    // Validate number of players (8 players are required)
-    const playerNames = document.querySelectorAll(".player-name");
-    let playerCount = 0;
-    playerNames.forEach(function (player) {
-        if (player.value.trim() !== "") {
-            playerCount++;
-        }
-    });
-
-    if (playerCount !== 8) {
-        document.getElementById("player-error").innerText = "You must enter exactly 8 player names.";
-        valid = false;
-    } else {
-        document.getElementById("player-error").innerText = "";
-    }
-
-    // Validate terms checkbox
-    const terms = document.getElementById("terms");
-    if (!terms.checked) {
-        document.getElementById("terms-error").innerText = "You must agree to the terms and conditions.";
-        valid = false;
-    } else {
-        document.getElementById("terms-error").innerText = "";
-    }
-
-    // If form is valid, proceed to the payment page
-    if (valid) {
-        window.location.href = "payment.html";
-    }
-}
-
-// Add Event Listener to the Form Submit Button
-document.getElementById("registration-form").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
-    validateForm(); // Call the form validation function
-});
-
-// Dynamic Carousel Controls (if needed)
-document.querySelectorAll(".carousel-control-prev, .carousel-control-next").forEach(control => {
-    control.addEventListener("click", function (event) {
-        event.preventDefault();
-        const direction = this.classList.contains("carousel-control-prev") ? "prev" : "next";
-        $('#mainCarousel').carousel(direction);
-    });
-});
-
-// Real-Time Feedback for Player Names Input
-document.querySelectorAll(".player-name").forEach(playerInput => {
-    playerInput.addEventListener("input", function () {
-        if (this.value.trim() === "") {
-            this.classList.add("is-invalid");
+    playerNames.forEach(input => {
+        if (input.value.trim() === "") {
+            input.classList.add('is-invalid');
+            valid = false;
         } else {
-            this.classList.remove("is-invalid");
+            input.classList.remove('is-invalid');
         }
+    });
+
+    if (valid) {
+        alert('Registration Successful!');
+        // You can submit the form or process the data here
+    } else {
+        alert('Please fill in all player names');
+    }
+});
+// Get modal element and modal content
+const modal = document.getElementById('galleryModal');
+const modalImg = document.getElementById('modalImage');
+const captionText = document.getElementById('caption');
+const closeBtn = document.querySelector('.close');
+
+// Get all gallery items (both images and videos)
+const galleryItems = document.querySelectorAll('.gallery-item img');
+
+// Get previous and next buttons
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+// Initialize index for tracking current image
+let currentIndex = 0;
+
+// Function to open the modal with the clicked image
+function openModal(index) {
+    modal.style.display = "block";
+    modalImg.src = galleryItems[index].src;
+    captionText.innerHTML = galleryItems[index].alt;
+    currentIndex = index;
+}
+
+// Close the modal when the close button is clicked
+closeBtn.addEventListener('click', function() {
+    modal.style.display = "none";
+});
+
+// Loop through each image and add click event to open modal
+galleryItems.forEach((item, index) => {
+    item.addEventListener('click', function() {
+        openModal(index);
     });
 });
 
-// Payment Page Validation
-function validatePaymentForm() {
-    let valid = true;
+// Show previous image in the modal
+prevBtn.addEventListener('click', function() {
+    currentIndex = (currentIndex === 0) ? galleryItems.length - 1 : currentIndex - 1;
+    updateModalContent();
+});
 
-    // Validate card number
-    const cardNumber = document.getElementById("card-number");
-    const cardPattern = /^\d{16}$/; // Simple validation for 16-digit card number
-    if (!cardPattern.test(cardNumber.value)) {
-        cardNumber.classList.add("is-invalid");
-        valid = false;
-    } else {
-        cardNumber.classList.remove("is-invalid");
-    }
+// Show next image in the modal
+nextBtn.addEventListener('click', function() {
+    currentIndex = (currentIndex === galleryItems.length - 1) ? 0 : currentIndex + 1;
+    updateModalContent();
+});
 
-    // Validate expiration date (MM/YY format)
-    const expiryDate = document.getElementById("expiry-date");
-    const expiryPattern = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-    if (!expiryPattern.test(expiryDate.value)) {
-        expiryDate.classList.add("is-invalid");
-        valid = false;
-    } else {
-        expiryDate.classList.remove("is-invalid");
-    }
-
-    // Validate CVV (3-digit security code)
-    const cvv = document.getElementById("cvv");
-    const cvvPattern = /^[0-9]{3}$/;
-    if (!cvvPattern.test(cvv.value)) {
-        cvv.classList.add("is-invalid");
-        valid = false;
-    } else {
-        cvv.classList.remove("is-invalid");
-    }
-
-    // Validate terms checkbox on the payment page
-    const paymentTerms = document.getElementById("payment-terms");
-    if (!paymentTerms.checked) {
-        document.getElementById("payment-terms-error").innerText = "You must agree to the payment terms.";
-        valid = false;
-    } else {
-        document.getElementById("payment-terms-error").innerText = "";
-    }
-
-    // If form is valid, show a success message
-    if (valid) {
-        alert("Payment successful! You will receive a confirmation email shortly.");
-        window.location.href = "confirmation.html"; // Redirect to confirmation page
-    }
+// Function to update modal content when navigating
+function updateModalContent() {
+    modalImg.src = galleryItems[currentIndex].src;
+    captionText.innerHTML = galleryItems[currentIndex].alt;
 }
 
-// Add Event Listener for the Payment Form
-document.getElementById("payment-form").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
-    validatePaymentForm(); // Call payment validation
+// Close modal when clicking outside the image
+modal.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
 });
