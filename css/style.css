@@ -1,203 +1,228 @@
 /* Base styles for the entire page */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
+}
+
+/* Header and logo */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+}
+
+header img {
+  width: 150px; /* Control logo size for mobile */
+  height: auto;
+  max-width: 100%; /* Ensure the logo doesn't overflow */
+}
+
+/* Fix logo color issue */
+header img {
+  filter: none; /* Ensure no filters are making it appear black */
+}
+
+/* Carousel */
+.carousel-inner img {
+  width: 100%;
+  height: auto;
+}
+
+/* Carousel controls (next/prev buttons) */
+button.carousel-control-prev,
+button.carousel-control-next {
+  width: 50px; /* Adjust the size for better touch experience */
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+}
+
+button.carousel-control-prev-icon,
+button.carousel-control-next-icon {
+  width: 25px;
+  height: 25px;
+}
+
+/* Align text in the carousel */
+.carousel-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  font-size: 18px;
+}
+
+/* General button styles */
+button {
+  padding: 15px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px;
   }
-  
-  /* Carousel */
+
+  button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  /* Adjust carousel dimensions for mobile */
   .carousel-inner img {
-    width: 100%;
-    height: auto;
+    height: 200px;
   }
-  
-  /* Carousel controls (next/prev buttons) */
+
+  /* Adjust caption size */
+  .carousel-caption {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  /* Adjust the carousel control button size for smaller screens */
   button.carousel-control-prev,
   button.carousel-control-next {
-    width: 50px; /* Adjust the size for better touch experience */
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
   }
-  
+
+  button.carousel-control-prev-icon,
+  button.carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Header logo sizing for mobile */
+  header img {
+    width: 120px; /* Adjust the logo size for mobile */
+  }
+}
+
+/* For tablets (medium screens) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+
+  /* Adjust carousel dimensions for tablets */
+  .carousel-inner img {
+    height: 300px;
+  }
+
+  /* Adjust carousel control button size */
+  button.carousel-control-prev,
+  button.carousel-control-next {
+    width: 45px;
+    height: 45px;
+  }
+
+  button.carousel-control-prev-icon,
+  button.carousel-control-next-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* For large screens (desktops) */
+@media (min-width: 1025px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  button {
+    font-size: 20px;
+    padding: 14px 28px;
+  }
+
+  /* Adjust carousel dimensions for desktop */
+  .carousel-inner img {
+    height: 400px;
+  }
+
+  /* Adjust carousel control button size */
+  button.carousel-control-prev,
+  button.carousel-control-next {
+    width: 50px;
+    height: 50px;
+  }
+
   button.carousel-control-prev-icon,
   button.carousel-control-next-icon {
     width: 25px;
     height: 25px;
   }
-  
-  /* Align text in the carousel */
-  .carousel-caption {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    font-size: 18px;
-  }
-  
-  /* General button styles */
-  button {
-    padding: 15px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* For small screens (mobile phones) */
-  @media (max-width: 600px) {
-    /* Make text larger and buttons bigger for better readability on small screens */
-    h1 {
-      font-size: 20px;
-    }
-  
-    button {
-      font-size: 16px;
-      padding: 10px 20px;
-    }
-  
-    /* Adjust carousel dimensions for mobile */
-    .carousel-inner img {
-      height: 200px;
-    }
-  
-    /* Adjust caption size */
-    .carousel-caption {
-      font-size: 14px;
-      padding: 8px;
-    }
-  
-    /* Adjust the carousel control button size for smaller screens */
-    button.carousel-control-prev,
-    button.carousel-control-next {
-      width: 40px;
-      height: 40px;
-    }
-  
-    button.carousel-control-prev-icon,
-    button.carousel-control-next-icon {
-      width: 20px;
-      height: 20px;
-    }
-  }
-  
-  /* For tablets (medium screens) */
-  @media (min-width: 601px) and (max-width: 1024px) {
-    h1 {
-      font-size: 28px;
-    }
-  
-    button {
-      font-size: 18px;
-      padding: 12px 24px;
-    }
-  
-    /* Adjust carousel dimensions for tablets */
-    .carousel-inner img {
-      height: 300px;
-    }
-  
-    /* Adjust carousel control button size */
-    button.carousel-control-prev,
-    button.carousel-control-next {
-      width: 45px;
-      height: 45px;
-    }
-  
-    button.carousel-control-prev-icon,
-    button.carousel-control-next-icon {
-      width: 22px;
-      height: 22px;
-    }
-  }
-  
-  /* For large screens (desktops) */
-  @media (min-width: 1025px) {
-    h1 {
-      font-size: 36px;
-    }
-  
-    button {
-      font-size: 20px;
-      padding: 14px 28px;
-    }
-  
-    /* Adjust carousel dimensions for desktop */
-    .carousel-inner img {
-      height: 400px;
-    }
-  
-    /* Adjust carousel control button size */
-    button.carousel-control-prev,
-    button.carousel-control-next {
-      width: 50px;
-      height: 50px;
-    }
-  
-    button.carousel-control-prev-icon,
-    button.carousel-control-next-icon {
-      width: 25px;
-      height: 25px;
-    }
-  }
-  
-  /* Image styles for general responsiveness */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Other styles for layout */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
+}
+
+/* Image styles for general responsiveness */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Other styles for layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-sm-12 {
+  flex: 100%;
+}
+
+.col-md-6 {
+  flex: 50%;
+}
+
+.col-lg-4 {
+  flex: 33.33%;
+}
+
+/* Responsive grid system for Bootstrap-like layout */
+@media (max-width: 767px) {
   .col-sm-12 {
     flex: 100%;
   }
-  
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
   .col-md-6 {
     flex: 50%;
   }
-  
+}
+
+@media (min-width: 992px) {
   .col-lg-4 {
     flex: 33.33%;
   }
-  
-  /* Responsive grid system for Bootstrap-like layout */
-  @media (max-width: 767px) {
-    .col-sm-12 {
-      flex: 100%;
-    }
-  }
-  
-  @media (min-width: 768px) and (max-width: 991px) {
-    .col-md-6 {
-      flex: 50%;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .col-lg-4 {
-      flex: 33.33%;
-    }
-  }
-  
+}
